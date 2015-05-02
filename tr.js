@@ -14,11 +14,7 @@ var sendToTr = function (word, callback) {
     request.get(
         'https://translate.yandex.net/api/v1.5/tr.json/translate?key=' + YAKEY + '&lang=en-ru&text=' + word,
         function (error, response, body) {
-            if (error) {
-                callback.end(error);
-            } else {
-                callback.end(JSON.parse(body)['text']['0'], 'utf-8');
-            }
+            callback(error,body);
         }
     );
 };
@@ -33,9 +29,15 @@ function onRequest(req, res) {
     //страница c переводом
     else if (urlUtl.parse(req.url)['query']) {
         res.writeHead(200, {"Content-Type": "text/plain;charset=utf-8"});
-        //Слово которое надо перевести.
+        //Слово которе
         var word = urlUtl.parse(req.url, true)['query']['word'];
-        sendToTr(word, res);
+        sendToTr(word,  function(error, body){
+            if (error) {
+                res.end(error, 'utf-8');
+            } else {
+                res.end(JSON.parse(body)['text']['0']);
+            }
+        })
     }
     //Другие страницы
     else {
