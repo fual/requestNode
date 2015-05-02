@@ -1,0 +1,15 @@
+{
+  "name": "rn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Khlebaev Alexey <f20music@narod.ru>",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^0.19.0",
+    "request": "^2.55.0"
+  }
+}
